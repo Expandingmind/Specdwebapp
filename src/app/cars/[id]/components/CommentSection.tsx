@@ -6,6 +6,7 @@ import { FiUser, FiSend } from 'react-icons/fi';
 import { useAuth } from '@/hooks/useAuth';
 import { Comment } from '@/lib/db';
 import { addComment } from '@/lib/db';
+import { Timestamp } from 'firebase/firestore';
 
 interface CommentSectionProps {
   carId: string;
@@ -41,11 +42,9 @@ const CommentSection: React.FC<CommentSectionProps> = ({ carId, comments: initia
       
       const commentRef = await addComment(commentData);
       
-      // Optimistically add the comment to the UI
-      const createdAt = {
-        seconds: Math.floor(Date.now() / 1000),
-        nanoseconds: 0
-      };
+      // Create a proper Timestamp object for the createdAt field
+      const now = new Date();
+      const createdAt = Timestamp.fromDate(now);
       
       const newCommentObj: Comment = {
         id: commentRef.id,
