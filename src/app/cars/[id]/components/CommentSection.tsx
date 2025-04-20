@@ -35,7 +35,7 @@ const CommentSection: React.FC<CommentSectionProps> = ({ carId, comments: initia
         carId,
         userId,
         userName: user.name || 'Anonymous',
-        userImage: user.image,
+        userImage: user.image || undefined,
         content: newComment.trim(),
       };
       
