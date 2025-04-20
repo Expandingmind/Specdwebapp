@@ -28,9 +28,12 @@ const CommentSection: React.FC<CommentSectionProps> = ({ carId, comments: initia
     try {
       setIsSubmitting(true);
       
+      // Use email as a unique identifier if id is not available
+      const userId = user.email || 'anonymous-user';
+      
       const commentData = {
         carId,
-        userId: user.id,
+        userId,
         userName: user.name || 'Anonymous',
         userImage: user.image,
         content: newComment.trim(),
